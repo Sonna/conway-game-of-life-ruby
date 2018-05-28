@@ -119,11 +119,26 @@ class Game
   end
 
   def update_cell(next_board, col_i, row_i)
-    case board.neighbours(col_i, row_i).count
-    when 3 && board[row_i, col_i].dead? then next_board[row_i, col_i].alive!
-    when 0..1 then next_board[row_i, col_i].dead!
-    when 2..3 then next_board[row_i, col_i].alive!
-    when 4..8 then next_board[row_i, col_i].dead!
+    num_alive = board.neighbours(col_i, row_i).count
+    cell = board[row_i, col_i]
+    # case board.neighbours(col_i, row_i).count
+    # when 3 then cell.dead? && next_board[row_i, col_i].alive!
+    # when 0..1 then next_board[row_i, col_i].dead!
+    # when 2..3 then next_board[row_i, col_i].alive!
+    # when 4..8 then next_board[row_i, col_i].dead!
+    # end
+    if (num_alive == 3 && cell.dead?) then next_board[row_i, col_i].alive!
+    elsif (cell.alive?)
+      # if (num_alive == 2 || num_alive == 3) then next_board[row_i, col_i].alive!
+      # if (num_alive < 2) then next_board[row_i, col_i].dead!
+      # elsif ((2..3).cover?(num_alive)) then next_board[row_i, col_i].alive!
+      # elsif (num_alive > 4) then next_board[row_i, col_i].dead!
+      # end
+      case num_alive
+      when 0..1 then next_board[row_i, col_i].dead!
+      when 2..3 then next_board[row_i, col_i].alive!
+      when 4..8 then next_board[row_i, col_i].dead!
+      end
     end
   end
 end
