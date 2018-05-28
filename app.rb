@@ -50,11 +50,6 @@ class Board
   def [](x, y)
     # maybe loop the board in the future?
     return nil unless (0...columns).include?(x) && (0...rows).include?(y)
-    # return nil unless (0...rows).include?(x) && (0...columns).include?(y)
-    # return nil if x < 0 || x > columns
-    # return nil if y < 0 || y > rows
-    # # return nil if x < 0 || x > rows
-    # # return nil if y < 0 || y > columns
     cells[y][x]
   end
 
@@ -91,8 +86,6 @@ class Board
   end
 end
 
-# require "io/console"
-
 class Game
   attr_reader :board
 
@@ -105,17 +98,12 @@ class Game
   end
 
   def run
-    # IO.console.winsize = [80, 20]
-    # render
-
-    # Thread.new do
-      loop do
-        update
-        render
-        sleep(0.5)
-        $stdout.flush
-      end
-    # end
+    loop do
+      update
+      render
+      sleep(0.5)
+      $stdout.flush
+    end
   end
 
   def update
@@ -129,9 +117,6 @@ class Game
   end
 
   def update_cell(next_board, col_i, row_i)
-    # sum = neighbours(col_i, row_i).reduce(0, :+)
-    # case neighbours(col_i, row_i).sum
-    # case neighbours(col_i, row_i).count
     case board.neighbours(col_i, row_i).count
     when 3 && board[row_i, col_i].dead? then next_board[row_i, col_i].alive!
     when 0..1 then next_board[row_i, col_i].dead!
@@ -139,20 +124,6 @@ class Game
     when 4..8 then next_board[row_i, col_i].dead!
     end
   end
-
-  # def neighbours(col_i, row_i)
-  #   [
-  #     board[row_i - 1, col_i - 1], # top_left
-  #     board[row_i - 1, col_i],     # top_middle
-  #     board[row_i - 1, col_i + 1], # top_right
-  #     board[row_i, col_i - 1],     # middle_left
-  #     board[row_i, col_i + 1],     # middle_right
-  #     board[row_i + 1, col_i - 1], # bottom_left
-  #     board[row_i + 1, col_i],     # bottom_middle
-  #     board[row_i + 1, col_i + 1]  # bottom_right
-  #   ].compact # remove nils
-  # end
-
 end
 
 if $PROGRAM_NAME == __FILE__ && ARGV.first == "run"
