@@ -87,10 +87,12 @@ class Board
 end
 
 class Game
+  HALF_A_SECOND = 0.5
+
   attr_reader :board
 
   def initialize(random = true)
-    @board = Board.new(80, 20, random)
+    @board = Board.new(Board::DEFAULT_COLUMNS, Board::DEFAULT_ROWS, random)
   end
 
   def render
@@ -101,7 +103,7 @@ class Game
     loop do
       update
       render
-      sleep(0.5)
+      sleep(HALF_A_SECOND)
       $stdout.flush
     end
   end
@@ -270,12 +272,12 @@ end
 #   (http://rubylanguage.blogspot.com.au/2012/08/simple-flip-coin-application.html)
 #
 
-# >> Run options: --seed 16864
+# >> Run options: --seed 40163
 # >>
 # >> # Running:
 # >>
 # >> ..........
 # >>
-# >> Finished in 0.002943s, 3397.8933 runs/s, 5096.8400 assertions/s.
+# >> Finished in 0.003619s, 2763.1943 runs/s, 4144.7914 assertions/s.
 # >>
 # >> 10 runs, 15 assertions, 0 failures, 0 errors, 0 skips
