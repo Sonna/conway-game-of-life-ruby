@@ -91,8 +91,11 @@ class Game
 
   attr_reader :board
 
-  def initialize(random = true)
-    @board = Board.new(Board::DEFAULT_COLUMNS, Board::DEFAULT_ROWS, random)
+  def initialize(columns = Board::DEFAULT_COLUMNS,
+                 rows = Board::DEFAULT_ROWS,
+                 random = true)
+    @board = Board.new(columns, rows, random)
+  end
 
   def seed(input)
     board.seed(input)
@@ -283,6 +286,127 @@ elsif $PROGRAM_NAME == __FILE__ ||
       BOARD
     end
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength
+    class StillLifesGameTest < Minitest::Test
+      def test_block_still_life
+        game = Game.new(4, 4, false)
+        game.seed(<<~BOARD)
+          ....
+          .**.
+          .**.
+          ....
+        BOARD
+
+        subject = local_io {
+          game.update
+          game.render
+        }
+
+        assert_equal(<<~BOARD + "\n", subject)
+          ....
+          .**.
+          .**.
+          ....
+        BOARD
+      end
+
+      def test_beehive_still_life
+        game = Game.new(6, 5, false)
+        game.seed(<<~BOARD)
+          ......
+          ..**..
+          .*..*.
+          ..**..
+          ......
+        BOARD
+
+        subject = local_io {
+          game.update
+          game.render
+        }
+
+        assert_equal(<<~BOARD + "\n", subject)
+          ......
+          ..**..
+          .*..*.
+          ..**..
+          ......
+        BOARD
+      end
+
+      def test_loaf_still_life
+        game = Game.new(6, 6, false)
+        game.seed(<<~BOARD)
+          ......
+          ..**..
+          .*..*.
+          ..*.*.
+          ...*..
+          ......
+        BOARD
+
+        subject = local_io {
+          game.update
+          game.render
+        }
+
+        assert_equal(<<~BOARD + "\n", subject)
+          ......
+          ..**..
+          .*..*.
+          ..*.*.
+          ...*..
+          ......
+        BOARD
+      end
+
+      def test_boat_still_life
+        game = Game.new(5, 5, false)
+        game.seed(<<~BOARD)
+          .....
+          .**..
+          .*.*.
+          ..*..
+          .....
+        BOARD
+
+        subject = local_io {
+          game.update
+          game.render
+        }
+
+        assert_equal(<<~BOARD + "\n", subject)
+          .....
+          .**..
+          .*.*.
+          ..*..
+          .....
+        BOARD
+      end
+
+      def test_tub_still_life
+        game = Game.new(5, 5, false)
+        game.seed(<<~BOARD)
+          .....
+          ..*..
+          .*.*.
+          ..*..
+          .....
+        BOARD
+
+        subject = local_io {
+          game.update
+          game.render
+        }
+
+        assert_equal(<<~BOARD + "\n", subject)
+          .....
+          ..*..
+          .*.*.
+          ..*..
+          .....
+        BOARD
+      end
+    end
   end
 end
 
@@ -294,12 +418,12 @@ end
 #   (http://rubylanguage.blogspot.com.au/2012/08/simple-flip-coin-application.html)
 #
 
-# >> Run options: --seed 40163
+# >> Run options: --seed 53792
 # >>
 # >> # Running:
 # >>
-# >> ..........
+# >> ...........
 # >>
-# >> Finished in 0.003619s, 2763.1943 runs/s, 4144.7914 assertions/s.
+# >> Finished in 0.003482s, 3159.1040 runs/s, 4595.0603 assertions/s.
 # >>
-# >> 10 runs, 15 assertions, 0 failures, 0 errors, 0 skips
+# >> 11 runs, 16 assertions, 0 failures, 0 errors, 0 skips
