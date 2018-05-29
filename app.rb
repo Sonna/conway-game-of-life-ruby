@@ -287,6 +287,7 @@ elsif $PROGRAM_NAME == __FILE__ ||
     end
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength
 
+    # rubocop:disable Metrics/LineLength, Metrics/MethodLength
     class StillLifesGameTest < Minitest::Test
       def test_block_still_life
         game = Game.new(4, 4, false)
@@ -581,7 +582,6 @@ elsif $PROGRAM_NAME == __FILE__ ||
         BOARD
       end
 
-      # rubocop:disable Metrics/LineLength, Metrics/MethodLength
       def test_pentadecathlon_oscillator
         game = Game.new(9, 16, false)
         game.seed(<<~BOARD)
@@ -903,8 +903,101 @@ elsif $PROGRAM_NAME == __FILE__ ||
           .........
         BOARD
       end
-      # rubocop:enable Metrics/LineLength, Metrics/MethodLength
     end
+    # rubocop:enable Metrics/LineLength, Metrics/MethodLength
+
+    # rubocop:disable Metrics/LineLength, Metrics/MethodLength
+    class SpaceShipsGameTest < Minitest::Test
+      def test_glider_spaceship
+        game = Game.new(4, 4, false)
+        game.seed(<<~BOARD)
+          .*..
+          ..*.
+          ***.
+          ....
+        BOARD
+
+        subject = local_io { game.update; game.render; }
+        assert_equal(<<~BOARD + "\n", subject)
+          ....
+          *.*.
+          .**.
+          .*..
+        BOARD
+
+        subject = local_io { game.update; game.render; }
+        assert_equal(<<~BOARD + "\n", subject)
+          ....
+          ..*.
+          *.*.
+          .**.
+        BOARD
+
+        subject = local_io { game.update; game.render; }
+        assert_equal(<<~BOARD + "\n", subject)
+          ....
+          .*..
+          ..**
+          .**.
+        BOARD
+
+        subject = local_io { game.update; game.render; }
+        assert_equal(<<~BOARD + "\n", subject)
+          ....
+          ..*.
+          ...*
+          .***
+        BOARD
+      end
+
+      def test_lightweight_spaceship_spaceship
+        game = Game.new(7, 5, false)
+        game.seed(<<~BOARD)
+          .**....
+          ****...
+          **.**..
+          ..**...
+          .......
+        BOARD
+
+        subject = local_io { game.update; game.render; }
+        assert_equal(<<~BOARD + "\n", subject)
+          *..*...
+          ....*..
+          *...*..
+          .****..
+          .......
+        BOARD
+
+        subject = local_io { game.update; game.render; }
+        assert_equal(<<~BOARD + "\n", subject)
+          .......
+          ...**..
+          .**.**.
+          .****..
+          ..**...
+        BOARD
+
+        subject = local_io { game.update; game.render; }
+        assert_equal(<<~BOARD + "\n", subject)
+          .......
+          ..****.
+          .*...*.
+          .....*.
+          .*..*..
+        BOARD
+
+        subject = local_io { game.update; game.render; }
+        assert_equal(<<~BOARD + "\n", subject)
+          ...**..
+          ..****.
+          ..**.**
+          ....**.
+          .......
+        BOARD
+      end
+    end
+    # rubocop:enable Metrics/LineLength, Metrics/MethodLength
   end
 end
 
@@ -916,12 +1009,12 @@ end
 #   (http://rubylanguage.blogspot.com.au/2012/08/simple-flip-coin-application.html)
 #
 
-# >> Run options: --seed 58313
+# >> Run options: --seed 53645
 # >>
 # >> # Running:
 # >>
-# >> ....................
+# >> ......................
 # >>
-# >> Finished in 0.030699s, 651.4870 runs/s, 1433.2714 assertions/s.
+# >> Finished in 0.033987s, 647.3063 runs/s, 1529.9968 assertions/s.
 # >>
-# >> 20 runs, 44 assertions, 0 failures, 0 errors, 0 skips
+# >> 22 runs, 52 assertions, 0 failures, 0 errors, 0 skips
