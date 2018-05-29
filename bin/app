@@ -3,8 +3,8 @@
 require "bundler/setup"
 require "conway_game_of_life"
 
-game = Game.new
-if ARGV.length > 1
-  game.seed(ARGV[1])
+game = ConwayGameOfLife::Game.new
+if ARGV.length > 0
+  game.seed(ARGV.first)
 end
 game.run
