@@ -99,15 +99,15 @@ class Game
   end
 
   def render
-    puts board.render + "\n"
+    puts board.render + "\n\n"
   end
 
   def run
     loop do
-      update
       render
       sleep(HALF_A_SECOND)
       $stdout.flush
+      update
     end
   end
 
@@ -258,8 +258,8 @@ elsif $PROGRAM_NAME == __FILE__ ||
   class GameTest < Minitest::Test
     # rubocop:disable Metrics/LineLength, Metrics/MethodLength
     def test_game_render_barren_board
-      subject = local_io { Game.new(false).render }
-      assert_equal(<<~BOARD, subject)
+      subject = local_io { Game.new(80, 20, false).render }
+      assert_equal(<<~BOARD + "\n", subject)
         ................................................................................
         ................................................................................
         ................................................................................
