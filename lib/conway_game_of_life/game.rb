@@ -10,10 +10,6 @@ module ConwayGameOfLife
       @board = Board.new(columns, rows, random)
     end
 
-    def seed(input)
-      board.seed(input)
-    end
-
     def render
       puts board.render + "\n\n"
     end
@@ -25,6 +21,10 @@ module ConwayGameOfLife
         $stdout.flush
         update
       end
+    end
+
+    def seed(input)
+      board.seed(input)
     end
 
     def update
