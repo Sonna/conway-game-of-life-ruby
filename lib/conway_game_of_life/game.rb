@@ -18,7 +18,6 @@ module ConwayGameOfLife
       loop do
         render
         sleep(HALF_A_SECOND)
-        $stdout.flush
         update
       end
     end
