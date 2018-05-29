@@ -2,6 +2,17 @@
 
 ## Usage
 
+[Install Ruby][Install Ruby] and its dependencies, to setup project:
+
+```console
+  $ gem install bundler
+  $ bundle install
+```
+
+<!-- References -->
+[Install Ruby]: https://www.ruby-lang.org/en/downloads/ "Download Ruby"
+
+
 To begin the application with random values use
 
 ```console
