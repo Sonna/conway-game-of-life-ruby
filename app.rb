@@ -93,6 +93,9 @@ class Game
 
   def initialize(random = true)
     @board = Board.new(Board::DEFAULT_COLUMNS, Board::DEFAULT_ROWS, random)
+
+  def seed(input)
+    board.seed(input)
   end
 
   def render
@@ -144,7 +147,11 @@ class Game
 end
 
 if $PROGRAM_NAME == __FILE__ && ARGV.first == "run"
-  Game.new.run
+  game = Game.new
+  if ARGV.length > 1
+    game.seed(ARGV[1])
+  end
+  game.run
 elsif $PROGRAM_NAME == __FILE__ ||
   ($PROGRAM_NAME == __FILE__ && ARGV.first == "test")
   require "minitest/autorun"
