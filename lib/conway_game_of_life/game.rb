@@ -38,7 +38,7 @@ module ConwayGameOfLife
     end
 
     def update_cell(next_board, col_i, row_i)
-      num_alive = board.neighbours(col_i, row_i).count
+      num_alive = board.neighbours(col_i, row_i).reject(&:dead?).count
       cell = board[row_i, col_i]
 
       if (num_alive == 3 && cell.dead?) then next_board[row_i, col_i].alive!

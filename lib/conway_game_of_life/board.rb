@@ -25,7 +25,7 @@ module ConwayGameOfLife
     end
 
     def neighbours(col_i, row_i)
-      neighbouring_cells(col_i, row_i).compact.reject(&:dead?)
+      neighbouring_cells(col_i, row_i).compact
     end
 
     def neighbouring_cells(col_i, row_i)
@@ -38,7 +38,7 @@ module ConwayGameOfLife
         self[row_i + 1, col_i - 1], # bottom_left
         self[row_i + 1, col_i],     # bottom_middle
         self[row_i + 1, col_i + 1]  # bottom_right
-      ] #.compact # remove nils
+      ]
     end
 
     def render
