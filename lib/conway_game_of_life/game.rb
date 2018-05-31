@@ -11,6 +11,7 @@ module ConwayGameOfLife
     end
 
     def render
+      puts "\033[2J\033[1;1H"
       puts board.render + "\n\n"
     end
 
