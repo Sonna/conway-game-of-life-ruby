@@ -20,6 +20,10 @@ module ConwayGameOfLife
       end
     end
 
+    def ==(other)
+      self.class == other.class && self.cells == other.cells
+    end
+
     def [](x, y)
       # maybe loop the board in the future?
       return nil unless (0...columns).include?(x) && (0...rows).include?(y)
@@ -51,9 +55,14 @@ module ConwayGameOfLife
     #   where `*` a cell is alive, otherwise dead
     def seed(input)
       lines = input.split("\n")
+
+      @cells = Hash.new { |hash, key| hash[key] = Hash.new }
+      @columns = lines.map(&:length).max
+      @rows = lines.length
+
       columns.times do |col|
         rows.times do |row|
-          cells[row][col] = Cell.new(lines[row][col] == '*')
+          cells[row][col] = Cell.new(lines[row][col] =~ /[^ .]/)
         end
       end
     end
