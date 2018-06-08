@@ -7,7 +7,9 @@ module ConwayGameOfLife
     attr_reader :columns
     attr_reader :rows
 
-    def initialize(columns = DEFAULT_COLUMNS, rows = DEFAULT_ROWS, random = true)
+    def initialize(columns = DEFAULT_COLUMNS,
+                   rows = DEFAULT_ROWS,
+                   random = true)
       @columns = columns
       @rows = rows
       @cells = Hash.new { |hash, key| hash[key] = Hash.new }
